@@ -1,0 +1,825 @@
+<!doctype html>
+<html lang="vi" class="scroll-smooth overflow-x-hidden">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Tất cả về tôi | NGUYEN HOANG DUNG</title>
+    <link rel="icon" type="image/jpeg" href="DuKapai.jpg" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Inter & JetBrains Mono -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      html,
+      body {
+        max-width: 100%;
+        overflow-x: hidden !important;
+        touch-action: manipulation;
+      }
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #080c14;
+        color: #f3f4f6;
+      }
+      .font-mono {
+        font-family: "JetBrains Mono", monospace;
+      }
+      /* Typography chuẩn fluid */
+      .text-hero-title {
+        font-size: clamp(1.75rem, 4.5vw + 0.75rem, 4rem);
+        line-height: 1.2;
+      }
+      .text-hero-desc {
+        font-size: clamp(0.875rem, 1.1vw + 0.5rem, 1.2rem);
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #080c14;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1e293b;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #2563eb;
+      }
+      /* Glassmorphism hiệu ứng trang trọng */
+      .glass-card {
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .glass-card:hover {
+        border-color: rgba(37, 99, 235, 0.4);
+        box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.2);
+      }
+      /* Gradient Text */
+      .gradient-text {
+        background: linear-gradient(
+          135deg,
+          #60a5fa 0%,
+          #c084fc 50%,
+          #f43f5e 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .external-link {
+        font-weight: 700;
+        text-decoration: none;
+        transition: color 180ms ease, filter 180ms ease;
+      }
+      .external-link-savvycom {
+        color: #4ade80;
+      }
+      .external-link-btec {
+        color: #fb923c;
+      }
+      .external-link-hospital {
+        color: #60a5fa;
+      }
+      .external-link-drikapex {
+        color: #c084fc;
+      }
+      .external-link:hover {
+        filter: brightness(1.2);
+      }
+      .external-link:focus-visible {
+        border-radius: 2px;
+        outline: 2px solid currentColor;
+        outline-offset: 3px;
+      }
+      /* Safe Background Glows */
+      .glow-effect {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(110px);
+        opacity: 0.12;
+        pointer-events: none;
+        max-width: 100vw;
+      }
+      .portrait-background {
+        position: fixed;
+        z-index: 1;
+        bottom: 0;
+        width: clamp(7rem, 19vw, 19rem);
+        height: min(48vh, 34rem);
+        object-fit: contain;
+        object-position: bottom;
+        opacity: 0.42;
+        filter: saturate(1.08);
+        pointer-events: none;
+        user-select: none;
+        -webkit-mask-image: linear-gradient(to top, #000 78%, transparent 100%);
+        mask-image: linear-gradient(to top, #000 78%, transparent 100%);
+      }
+      .portrait-background-left {
+        left: 0;
+        filter: brightness(1.42) saturate(1.08);
+      }
+      .portrait-background-right {
+        right: 0;
+        filter: brightness(0.88) saturate(1.08);
+      }
+      @media (max-width: 640px) {
+        .portrait-background {
+          width: clamp(5.5rem, 25vw, 8rem);
+          height: min(34vh, 16rem);
+          opacity: 0.32;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="relative selection:bg-blue-600 selection:text-white antialiased w-full overflow-x-hidden"
+  >
+    <!-- Ambient Background Glows -->
+    <div
+      class="glow-effect w-[250px] h-[250px] sm:w-[450px] sm:h-[450px] bg-blue-700 top-[-50px] left-[-50px]"
+    ></div>
+    <div
+      class="glow-effect w-[250px] h-[250px] sm:w-[500px] sm:h-[500px] bg-indigo-700 top-[40%] right-[-50px]"
+    ></div>
+    <div
+      class="glow-effect w-[200px] h-[200px] sm:w-[400px] sm:h-[400px] bg-slate-700 bottom-[10%] left-[0px]"
+    ></div>
+
+    <!-- Canvas Particles -->
+    <canvas
+      id="particles-canvas"
+      class="fixed inset-0 pointer-events-none z-0 opacity-30"
+    ></canvas>
+
+    <!-- Responsive portrait backgrounds -->
+    <div aria-hidden="true" class="pointer-events-none">
+      <img
+        src="Dipax.png"
+        alt=""
+        draggable="false"
+        class="portrait-background portrait-background-left"
+      />
+      <img
+        src="DuKapai.png"
+        alt=""
+        draggable="false"
+        class="portrait-background portrait-background-right"
+      />
+    </div>
+
+    <!-- Navigation Header -->
+    <nav
+      class="fixed top-0 left-0 w-full z-50 glass-card border-b border-slate-800/80 py-3 px-4 sm:px-8 md:px-12 flex justify-between items-center"
+    >
+      <div
+        class="text-xs sm:text-base md:text-lg font-bold tracking-wide font-mono flex items-center gap-2 max-w-full overflow-hidden"
+      >
+        <span
+          class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-blue-500 animate-pulse shrink-0"
+        ></span>
+        <span class="truncate text-slate-100 tracking-wider"
+          >NGUYEN HOANG DUNG</span
+        >
+        <span class="text-[10px] sm:text-xs text-slate-400 font-normal shrink-0"
+          >- 15/03/2004</span
+        >
+      </div>
+      <div
+        class="hidden lg:flex gap-8 text-xs font-semibold uppercase tracking-wider text-slate-400"
+      >
+        <a href="#about" class="hover:text-blue-400 transition-colors"
+          >Quá Trình Công Tác</a
+        >
+        <a href="#contrast" class="hover:text-blue-400 transition-colors"
+          >Kỷ Luật & Hiệu Quả</a
+        >
+        <a href="#now" class="hover:text-blue-400 transition-colors"
+          >Định Hướng Phát Triển</a
+        >
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="min-h-screen relative z-10 flex flex-col justify-center items-center text-center px-4 sm:px-6 pt-20 pb-12 w-full max-w-full"
+    >
+      <div
+        data-aos="fade-down"
+        data-aos-duration="1000"
+        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card text-[11px] sm:text-xs font-mono text-blue-400 mb-6 max-w-full truncate"
+      >
+        <i data-lucide="shield" class="w-3.5 h-3.5 shrink-0"></i>
+        <span class="truncate uppercase tracking-wider"
+          >Thế Giới Quan - Nhân Sinh Quan - Giá Trị Quan</span
+        >
+      </div>
+
+      <h1
+        data-aos="zoom-in"
+        data-aos-duration="1200"
+        class="text-hero-title font-extrabold tracking-tight mb-5 max-w-4xl break-words w-full text-slate-100"
+      >
+        Điềm tĩnh trong tư duy. <br />
+        <span class="gradient-text">Kiên định và vững vàng qua thực tiễn.</span>
+      </h1>
+
+      <div
+        data-aos="fade-up"
+        data-aos-delay="100"
+        aria-label="Giá trị và nền tảng tư duy"
+        class="flex flex-col items-center gap-2 mb-6 text-[10px] sm:text-xs font-semibold tracking-[0.12em] sm:tracking-[0.18em] uppercase"
+      >
+        <p class="flex flex-wrap justify-center items-center gap-x-2 gap-y-1 text-slate-400">
+          <span>Thân Thiện</span>
+          <span class="text-blue-400" aria-hidden="true">·</span>
+          <span>Chuyên Nghiệp</span>
+          <span class="text-blue-400" aria-hidden="true">·</span>
+          <span>Chu Đáo</span>
+        </p>
+        <p class="flex flex-wrap justify-center items-center gap-x-2 gap-y-1 text-blue-200">
+          <span>Tận Tâm</span>
+          <span class="text-purple-400" aria-hidden="true">·</span>
+          <span>Liêm Chính</span>
+          <span class="text-purple-400" aria-hidden="true">·</span>
+          <span>Nhân Văn</span>
+        </p>
+      </div>
+
+      <p
+        data-aos="fade-up"
+        data-aos-delay="200"
+        class="text-hero-desc text-slate-300 max-w-2xl font-light mb-8 sm:mb-10 leading-relaxed break-words"
+      >
+        Mọi thử thách trong quá trình trưởng thành là thước đo bản lĩnh. Nhìn
+        nhận quá khứ làm cơ sở kinh nghiệm, lấy kỷ luật và tri thức làm nền tảng
+        xây dựng sự nghiệp bền vững.
+      </p>
+
+      <div
+        data-aos="fade-up"
+        data-aos-delay="400"
+        class="w-full sm:w-auto flex flex-col sm:flex-row gap-4 justify-center"
+      >
+        <a
+          href="#about"
+          class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-blue-700 hover:bg-blue-600 text-white font-semibold transition-all shadow-lg shadow-blue-900/30 flex items-center justify-center gap-2 group"
+        >
+          Theo dõi hành trình của tôi
+          <i
+            data-lucide="arrow-down"
+            class="w-4 h-4 group-hover:translate-y-1 transition-transform"
+          ></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section
+      id="about"
+      class="py-16 sm:py-24 px-4 sm:px-8 md:px-12 max-w-5xl mx-auto relative z-10 w-full"
+    >
+      <div class="mb-12 sm:mb-16 text-center" data-aos="fade-up">
+        <h2
+          class="text-xs font-mono tracking-widest text-blue-400 uppercase mb-2"
+        >
+          01 / QUÁ TRÌNH & TRẢI NGHIỆM
+        </h2>
+        <h3 class="text-2xl sm:text-4xl font-bold text-slate-100">
+          Quá Trình Học Tập & Kinh Nghiệm Công Tác
+        </h3>
+      </div>
+
+      <div
+        class="space-y-8 sm:space-y-12 relative before:absolute before:inset-0 before:left-3.5 md:before:left-1/2 before:-translate-x-px before:h-full before:w-0.5 before:bg-slate-800"
+      >
+        <!-- Item 1: 2017 - 2019 -->
+        <div
+          class="relative flex items-start sm:items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
+          data-aos="fade-up"
+        >
+          <div
+            class="flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-slate-900 border border-slate-700 group-hover:border-blue-500 text-blue-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors"
+          >
+            <i data-lucide="compass" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          </div>
+          <div
+            class="w-[calc(100%-2.25rem)] sm:w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] glass-card p-4 sm:p-6 rounded-2xl"
+          >
+            <span
+              class="text-[11px] sm:text-xs font-mono text-slate-400 font-semibold"
+              >2017 - 2019 · Khởi đầu</span
+            >
+            <h4
+              class="text-base sm:text-lg font-semibold text-slate-200 mt-1 mb-2 break-words"
+            >
+              Thử Nghiệm Thực Tế & Đa Dạng Hóa Kỹ Năng
+            </h4>
+            <p
+              class="text-xs sm:text-sm text-slate-300 leading-relaxed break-words"
+            >
+              Năng khiếu nghệ thuật; thử trải nghiệm công việc DJ và đăng
+              ký biểu diễn tại các quán bar. Những trải nghiệm này đem lại góc
+              nhìn trực tiếp về cả mặt tích cực lẫn những góc khuất của đời
+              sống xã hội, qua đó rèn luyện ý chí vững chắc không bị xa ngã bởi các cám dỗ với phương châm <strong>"Hòa nhập nhưng không
+              hòa tan"</strong>. Song song đó là quá trình thử sức với nội dung YouTube,
+              gaming, quay phim, dựng và chỉnh sửa video, góp phần xây dựng
+              thương hiệu cá nhân. Bên cạnh đó, có tìm hiểu về huyền học và từng có những trải nghiệm riêng
+              về tâm linh, bao gồm việc có thể thấy những điều người khác không
+              nhận thấy; đây là cảm nhận cá nhân, được tiếp cận với sự cởi mở
+              và thận trọng khi đưa ra nhận định.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 2: 2020 - 2022 -->
+        <div
+          class="relative flex items-start sm:items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
+          data-aos="fade-up"
+        >
+          <div
+            class="flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-slate-900 border border-slate-700 group-hover:border-blue-500 text-blue-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors"
+          >
+            <i data-lucide="award" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          </div>
+          <div
+            class="w-[calc(100%-2.25rem)] sm:w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] glass-card p-4 sm:p-6 rounded-2xl"
+          >
+            <span
+              class="text-[11px] sm:text-xs font-mono text-slate-400 font-semibold"
+              >2020 - 2022</span
+            >
+            <h4
+              class="text-base sm:text-lg font-semibold text-slate-200 mt-1 mb-2 break-words"
+            >
+              Kỷ Luật Lao Động & Trải Nghiệm Đa Chiều
+            </h4>
+            <p
+              class="text-xs sm:text-sm text-slate-300 leading-relaxed break-words"
+            >
+              Môi trường nhà hàng 5 sao rèn luyện tác phong và kỷ luật lao
+              động; được nhận làm người mẫu ảnh thương mại và phát hành âm nhạc mở rộng trong lĩnh vực sáng
+              tạo. Song song với công việc trái ngành vẫn không quên tập chung chuyên môn, việc tìm hiểu Deep Web và Dark Web
+              từng dẫn đến tổn thất tài chính khi kiến thức an toàn mạng còn
+              hạn chế. Trải nghiệm này giúp nhận thức rõ hơn về rủi ro số và
+              tầm quan trọng của bảo mật thông tin. Từ đó, tiếp tục bổ sung
+              kiến thức qua các khóa học cơ bản về chứng khoán, tài chính và
+              quản lý tài chính cá nhân.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 3: 2023 - 2024 -->
+        <div
+          class="relative flex items-start sm:items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
+          data-aos="fade-up"
+        >
+          <div
+            class="flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-slate-900 border border-slate-700 group-hover:border-blue-500 text-blue-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors"
+          >
+            <i
+              data-lucide="graduation-cap"
+              class="w-3.5 h-3.5 sm:w-4 sm:h-4"
+            ></i>
+          </div>
+          <div
+            class="w-[calc(100%-2.25rem)] sm:w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] glass-card p-4 sm:p-6 rounded-2xl"
+          >
+            <span
+              class="text-[11px] sm:text-xs font-mono text-slate-400 font-semibold"
+              >2023 - 2024</span
+            >
+            <h4
+              class="text-base sm:text-lg font-semibold text-slate-200 mt-1 mb-2 break-words"
+            >
+              Thành Tích Học Tập & Nền Tảng Chuyên Môn
+            </h4>
+            <p
+              class="text-xs sm:text-sm text-slate-300 leading-relaxed break-words"
+            >
+              Đảm nhiệm vai trò trưởng nhóm tại nhiều cuộc thi nhỏ trong trường;
+              được tiếp nhận thử việc 6 tháng tại
+              <a
+                href="https://savvycom.vn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="external-link external-link-savvycom"
+                >Savvycom</a
+              >
+              trong lĩnh vực phát triển
+              phần mềm cho thị trường nước ngoài. Vinh dự đạt danh hiệu
+              <strong>Sinh viên xuất sắc kỳ học 2024</strong> và đạt Top 56 tại vòng bán kết
+              trong cuộc thi <strong>FPT EDU HACKATHON toàn quốc</strong>.
+              Song song với học tập, hoàn thành các khóa đào tạo về bảo mật,
+              trí tuệ nhân tạo (AI), quản trị nhân sự và trí tuệ cảm xúc (EQ);
+              hỗ trợ bạn học với vai trò gia sư Công nghệ, đồng thời đặt nền
+              móng cho sự thành lập
+              <strong
+                ><a
+                  href="https://firedragondkp.asia/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="external-link external-link-drikapex"
+                  >Drikapex | Cộng đồng Minecraft &amp; Cơ hội phát triển</a
+                ></strong
+              >.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 4: 2025 - 12/2025 -->
+        <div
+          class="relative flex items-start sm:items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
+          data-aos="fade-up"
+        >
+          <div
+            class="flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-slate-900 border border-slate-700 group-hover:border-blue-500 text-blue-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors"
+          >
+            <i data-lucide="briefcase" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          </div>
+          <div
+            class="w-[calc(100%-2.25rem)] sm:w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] glass-card p-4 sm:p-6 rounded-2xl"
+          >
+            <span
+              class="text-[11px] sm:text-xs font-mono text-slate-400 font-semibold"
+              >2025 - 12/2025</span
+            >
+            <h4
+              class="text-base sm:text-lg font-semibold text-slate-200 mt-1 mb-2 break-words"
+            >
+              Tiếp cận Y Tế & Nâng Cao Tri Thức
+            </h4>
+            <p
+              class="text-xs sm:text-sm text-slate-300 leading-relaxed break-words"
+            >
+              Hoàn thành chương trình
+              <a
+                href="https://btec.fpt.edu.vn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="external-link external-link-btec"
+                >Cao đẳng Anh Quốc BTEC FPT</a
+              >, chuyên ngành Kỹ sư Phần mềm, tốt nghiệp xếp loại Xuất sắc; đạt IELTS 5.0
+              tại ECO English.
+              Cuối năm 2025, bắt đầu thử việc tại Phòng Công nghệ thông tin,
+              <a
+                href="https://benhvienhungvuong.vn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="external-link external-link-hospital"
+                >Bệnh viện đa khoa Hùng Vương</a
+              >
+              — dấu mốc chuyển từ đào tạo chuyên môn sang
+              môi trường y tế thực tiễn. Xác định kỷ luật, tinh thần trách
+              nhiệm và năng lực phối hợp là yêu cầu xuyên suốt; đồng thời bắt
+              đầu học tiếng Trung với mục tiêu phát triển từ HSK 1 lên HSK 4.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 5: 2026 - Hiện Tại -->
+        <div
+          class="relative flex items-start sm:items-center justify-between md:justify-normal md:odd:flex-row-reverse group"
+          data-aos="fade-up"
+        >
+          <div
+            class="flex items-center justify-center w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-slate-900 border border-slate-700 group-hover:border-blue-500 text-blue-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 transition-colors"
+          >
+            <i data-lucide="building" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          </div>
+          <div
+            class="w-[calc(100%-2.25rem)] sm:w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] glass-card p-4 sm:p-6 rounded-2xl"
+          >
+            <span
+              class="text-[11px] sm:text-xs font-mono text-slate-400 font-semibold"
+              >2026 - Hiện Tại</span
+            >
+            <h4
+              class="text-base sm:text-lg font-semibold text-slate-200 mt-1 mb-2 break-words"
+            >
+              Chính Thức Vào Biên Chế & Công Tác Lâu Dài
+            </h4>
+            <p
+              class="text-xs sm:text-sm text-slate-300 leading-relaxed break-words"
+            >
+              Từ tháng 02 đến tháng 08/2026, công tác tại
+              <a
+                href="https://benhvienhungvuong.vn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="external-link external-link-hospital"
+                >Bệnh viện đa khoa Hùng Vương</a
+              >, phụ trách chuyên môn hệ thống HIS. Từ tháng 09/2026 đến nay, đảm
+              nhiệm công việc logistics trong lĩnh vực y tế. Song song với công
+              việc chuyên môn, duy trì giảng dạy Toán và Tiếng Anh bậc THCS,
+              đồng thời theo đuổi lộ trình tiếng Trung từ HSK 1 lên HSK 4,
+              kết hợp tài liệu tiếng Anh để củng cố ngoại ngữ. Tiếp tục xây
+              dựng định hướng phát triển doanh nghiệp cá nhân.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contrast Section -->
+    <section
+      id="contrast"
+      class="py-16 sm:py-24 px-4 sm:px-8 md:px-12 bg-slate-950/20 relative z-10 border-y border-slate-800/80 w-full"
+    >
+      <div class="max-w-5xl mx-auto">
+        <div class="mb-12 sm:mb-16 text-center" data-aos="fade-up">
+          <h2
+            class="text-xs font-mono tracking-widest text-purple-400 uppercase mb-2"
+          >
+            02 / NĂNG LỰC & CHUẨN MỰC NGHỀ NGHIỆP
+          </h2>
+          <h3 class="text-2xl sm:text-4xl font-bold text-slate-100">
+            Kỷ Luật, Năng Lực & Hiệu Quả
+          </h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          <!-- Left Box -->
+          <div
+            class="glass-card p-5 sm:p-8 rounded-2xl border-l-4 border-l-blue-600"
+            data-aos="fade-right"
+          >
+            <div class="flex items-center gap-3 mb-4">
+              <i
+                data-lucide="file-check"
+                class="w-5 h-5 sm:w-6 sm:h-6 text-blue-400 shrink-0"
+              ></i>
+              <h4 class="text-base sm:text-xl font-bold text-slate-100">
+                Năng Lực Thực Thi
+              </h4>
+            </div>
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-300">
+              <li class="flex items-start gap-2.5">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"
+                ></i>
+                <span class="break-words"
+                  >Nhìn công việc theo hệ thống; ưu tiên tính chính xác, liên
+                  tục và hiệu quả vận hành.</span
+                >
+              </li>
+              <li class="flex items-start gap-2.5">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"
+                ></i>
+                <span class="break-words"
+                  >Chủ động cập nhật công nghệ, bảo mật và AI; chọn giải pháp
+                  phù hợp thay vì chạy theo xu hướng.</span
+                >
+              </li>
+              <li class="flex items-start gap-2.5">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"
+                ></i>
+                <span class="break-words"
+                  >Theo sát cam kết đến khi hoàn tất; lấy chất lượng đầu ra làm
+                  tiêu chuẩn đánh giá công việc.</span
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Right Box -->
+          <div
+            class="glass-card p-5 sm:p-8 rounded-2xl border-l-4 border-l-purple-600"
+            data-aos="fade-left"
+          >
+            <div class="flex items-center gap-3 mb-4">
+              <i
+                data-lucide="users"
+                class="w-5 h-5 sm:w-6 sm:h-6 text-purple-400 shrink-0"
+              ></i>
+              <h4 class="text-base sm:text-xl font-bold text-slate-100">
+                Tác Phong & Nguyên Tắc
+              </h4>
+            </div>
+            <ul class="space-y-3 text-xs sm:text-sm text-slate-300">
+              <li class="flex items-start gap-2.5">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-4 h-4 text-purple-400 shrink-0 mt-0.5"
+                ></i>
+                <span class="break-words"
+                  >Trao đổi thẳng thắn, đúng trọng tâm; phối hợp trên cơ sở mục
+                  tiêu và trách nhiệm rõ ràng.</span
+                >
+              </li>
+              <li class="flex items-start gap-2.5">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-4 h-4 text-purple-400 shrink-0 mt-0.5"
+                ></i>
+                <span class="break-words"
+                  >Giữ bình tĩnh trước áp lực, tiếp nhận phản biện và quyết
+                  định dựa trên căn cứ.</span
+                >
+              </li>
+              <li class="flex items-start gap-2.5">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-4 h-4 text-purple-400 shrink-0 mt-0.5"
+                ></i>
+                <span class="break-words"
+                  >Tôn trọng kỷ cương, bảo mật thông tin; nhất quán giữa điều
+                  đã nói và việc phải làm.</span
+                >
+              </li>
+              <li class="flex items-start gap-2.5">
+                <i
+                  data-lucide="check-circle-2"
+                  class="w-4 h-4 text-purple-400 shrink-0 mt-0.5"
+                ></i>
+                <span class="break-words"
+                  >Đối diện thiếu sót bằng hành động, siết kỷ luật và nâng
+                  chuẩn; để kết quả bền bỉ khẳng định năng lực.</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current State -->
+    <section
+      id="now"
+      class="py-16 sm:py-24 px-4 sm:px-8 md:px-12 max-w-5xl mx-auto relative z-10 w-full"
+    >
+      <div class="text-center mb-12 sm:mb-16" data-aos="fade-up">
+        <h2
+          class="text-xs font-mono tracking-widest text-blue-400 uppercase mb-2"
+        >
+          03 / ĐỊNH HƯỚNG & CAM KẾT
+        </h2>
+        <h3 class="text-2xl sm:text-4xl font-bold text-slate-100">
+          Vững Chuyên Môn, Bền Khát Vọng
+        </h3>
+        <p class="text-slate-400 text-xs sm:text-sm mt-3">
+          Theo đuổi mục tiêu dài hạn bằng năng lực, kỷ luật và trách nhiệm cụ
+          thể.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          class="glass-card p-5 sm:p-6 rounded-2xl text-center"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
+          <div
+            class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-600/10 text-blue-400 flex items-center justify-center mx-auto mb-4 shrink-0"
+          >
+            <i data-lucide="building-2" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+          </div>
+          <h4 class="font-bold text-base sm:text-lg mb-2 text-slate-100">
+            <a
+              href="https://benhvienhungvuong.vn/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="external-link external-link-hospital"
+              >Bệnh viện đa khoa Hùng Vương</a
+            >
+          </h4>
+          <p class="text-xs text-slate-300 leading-relaxed break-words">
+            Gắn bó lâu dài, xây dựng sự nghiệp ổn định; nâng cao năng lực CNTT
+            và logistics y tế, đóng góp bằng hiệu quả công việc.
+          </p>
+        </div>
+
+        <div
+          class="glass-card p-5 sm:p-6 rounded-2xl text-center"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          <div
+            class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-indigo-600/10 text-indigo-400 flex items-center justify-center mx-auto mb-4 shrink-0"
+          >
+            <i data-lucide="briefcase" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+          </div>
+          <h4 class="font-bold text-base sm:text-lg mb-2 text-slate-100">
+            <a
+              href="https://firedragondkp.asia/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="external-link external-link-drikapex"
+              >Drikapex | Cộng đồng Minecraft &amp; Cơ hội phát triển</a
+            >
+          </h4>
+          <p class="text-xs text-slate-300 leading-relaxed break-words">
+            Phát triển Drikapex song song với công việc chuyên môn: biến đam
+            mê thành năng lực tổ chức, sản phẩm và giá trị bền vững.
+          </p>
+        </div>
+
+        <div
+          class="glass-card p-5 sm:p-6 rounded-2xl text-center sm:col-span-2 lg:col-span-1"
+          data-aos="fade-up"
+          data-aos-delay="300"
+        >
+          <div
+            class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-slate-600/10 text-slate-300 flex items-center justify-center mx-auto mb-4 shrink-0"
+          >
+            <i data-lucide="shield-check" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+          </div>
+          <h4 class="font-bold text-base sm:text-lg mb-2 text-slate-100">
+            Tự Trọng, Kỷ Luật, Đường Dài
+          </h4>
+          <p class="text-xs text-slate-300 leading-relaxed break-words">
+            Không tìm kiếm sự công nhận. Tích lũy năng
+            lực, giữ vững nguyên tắc và theo đuổi mục tiêu. Kết quả tự lên tiếng.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+      class="py-8 sm:py-12 border-t border-slate-800/80 text-center text-xs font-mono text-slate-400 relative z-10 px-4 w-full"
+    >
+      <p>
+        © 2026 NGUYEN HOANG DUNG (黄勇). Bản quyền hồ sơ công tác & năng lực cá
+        nhân.
+      </p>
+    </footer>
+
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 30,
+      });
+
+      lucide.createIcons();
+
+      // Canvas Particles
+      const canvas = document.getElementById("particles-canvas");
+      const ctx = canvas.getContext("2d");
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      const particles = [];
+      const particleCount = window.innerWidth < 768 ? 25 : 45;
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 1.5 + 0.5,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: (Math.random() - 0.5) * 0.25,
+          alpha: Math.random() * 0.4 + 0.15,
+        });
+      }
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((p) => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(148, 163, 184, ${p.alpha})`;
+          ctx.fill();
+        });
+
+        requestAnimationFrame(animateParticles);
+      }
+      animateParticles();
+    </script>
+  </body>
+</html>
